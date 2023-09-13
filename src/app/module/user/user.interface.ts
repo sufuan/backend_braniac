@@ -1,9 +1,7 @@
-import { Schema,model } from "mongoose";
+import { Schema, model } from 'mongoose'
 
-
-export interface IUser {
-    id: string;
-    role: string;
-    password: string;
-  }
-  
+export type IUser = {
+  id: string
+  role: string
+  password: string
+}
