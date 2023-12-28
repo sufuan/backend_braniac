@@ -32,7 +32,7 @@ enum Category {
   DualPurpose = 'Dual Purpose',
 }
 
-export const cowZodSchema = z.object({
+export const UpdateCowValidationSchema = z.object({
   name: z.string().refine(value => value.trim() !== '', {
     message: 'Name is required',
   }),
@@ -60,8 +60,8 @@ export const cowZodSchema = z.object({
   }), // Assuming seller ID is a string, adjust accordingly
 })
 
-export type UserZodSchema = z.infer<typeof cowZodSchema>
+export type UserZodSchema = z.infer<typeof UpdateCowValidationSchema>
 
-export const cowValidation = {
-  cowZodSchema,
+export const updatrcowValidation = {
+  UpdateCowValidationSchema,
 }

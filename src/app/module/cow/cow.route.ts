@@ -2,6 +2,7 @@ import express from 'express'
 import { cowController } from './cowcontroller'
 import { cowValidation } from './cowvalidation'
 import validateRequest from '../../../middleware/validateRequest'
+import { updatrcowValidation } from './updateCowValidation'
 
 const router = express.Router()
 
@@ -17,7 +18,7 @@ router.delete('/cows/:id', cowController.deleteCow)
 
 router.patch(
   '/cows/:id',
-  //   validateRequest(UpdateUserValidation.UpdateuserZodSchema),
+  validateRequest(updatrcowValidation.UpdateCowValidationSchema),
   cowController.updateCow,
 )
 

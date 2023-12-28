@@ -1,8 +1,8 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
 import { ZodError } from 'zod'
 import { zodErrorHandler } from '../error/zodErrorHandler'
 
-const devError = (res, error) => {
+const devError = (res: Response, error: Error) => {
   res.status(error.statusCode).json({
     success: false,
     status: error.statusCode,
@@ -12,7 +12,7 @@ const devError = (res, error) => {
   })
 }
 
-const productionError = (res, error) => {
+const productionError = (res: Response, error: Error) => {
   res.status(error.statusCode).json({
     success: false,
     status: error.statusCode,
@@ -20,7 +20,7 @@ const productionError = (res, error) => {
   })
 }
 
-const validationErrorHandler = (res, error) => {
+const validationErrorHandler = (res: Response, error: Error) => {
   const handledError = zodErrorHandler(error)
 
   // Extracting error details for a more structured response
@@ -44,7 +44,7 @@ const validationErrorHandler = (res, error) => {
   })
 }
 
-const globalErrorHandler = (error, req: Request, res, next: NextFunction) => {
+const globalErrorHandler = (error: Error, req: Request, res: Response) => {
   error.statusCode = error.statusCode || 500
   error.status = error.status || 'error'
 
