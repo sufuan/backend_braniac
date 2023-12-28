@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express'
-import { z, ZodError } from 'zod'
+import { ZodError } from 'zod'
 
 // Generic function to create a middleware for Zod validation
-function validateRequest(validationSchema: z.ZodType<any, any, any>) {
+function validateRequest(validationSchema) {
   return (req: Request, res: Response, next: NextFunction) => {
     try {
       // Validate the request body against the provided Zod schema

@@ -31,14 +31,12 @@
 // }
 
 // controllers/semesterController.ts
-import { NextFunction, Request, Response } from 'express'
-import { AcademicSemester } from './academicSemeterModel'
+import { Request, Response } from 'express'
 import { AcademicSemesterServices } from './academicsemester.services'
 
 export const createAcademicSemester = async (
   req: Request,
   res: Response,
-  next: NextFunction,
 ): Promise<void> => {
   const { ...academicsemesterData } = req.body
 

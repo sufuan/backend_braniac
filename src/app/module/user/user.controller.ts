@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-import userService from './user.services'
 import User from './user.model'
 
 const createUser = async (req: Request, res: Response, next: NextFunction) => {
@@ -33,11 +32,7 @@ const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   }
 }
 
-const getSingleUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getSingleUser = async (req: Request, res: Response) => {
   const userId = req.params.id
   try {
     const user = await User.findById(userId)
@@ -66,11 +61,7 @@ const getSingleUser = async (
   }
 }
 
-const deleteSingleUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const deleteSingleUser = async (req: Request, res: Response) => {
   const userId = req.params.id // Assuming the user ID is in the route parameter
 
   try {
@@ -100,11 +91,7 @@ const deleteSingleUser = async (
   }
 }
 
-const updateSingleUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const updateSingleUser = async (req: Request, res: Response) => {
   const userId = req.params.id // Assuming the user ID is in the route parameter
   const updatedUserData = req.body
 

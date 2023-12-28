@@ -1,9 +1,8 @@
-import { Request, Response } from 'express'
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import Cow from './cowmodel'
 
-import CowModel from './cowmodel'
-import ICow from './cowmodel'
-import mongoose from 'mongoose'
+import { Request, Response, NextFunction } from 'express'
 
 async function createCow(req: Request, res: Response) {
   try {
@@ -34,7 +33,7 @@ async function createCow(req: Request, res: Response) {
 const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
   try {
     // Fetch all cows from the database
-    const cows = await CowModel.find()
+    const cows = await Cow.find()
 
     res.status(200).json({
       success: true,

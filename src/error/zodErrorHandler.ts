@@ -5,8 +5,8 @@ export function zodErrorHandler(error: ZodError) {
   //   const message = 'Validation error'
 
   error.issues.map(issue => {
-    path: issue.path
-    message: issue.message
+    issue.path
+    issue.message
   })
 
   //   return {

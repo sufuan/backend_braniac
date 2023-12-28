@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import express, { Application, NextFunction, Request } from 'express'
 const app: Application = express()
 import userRoute from './app/module/user/user.route'
@@ -6,12 +7,9 @@ import semester from './app/module/academicSemister/academicsemester.route'
 
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import e from 'express'
+
 import globalErrorHandler from './middleware/globalErrorHandler'
-import {
-  generateFacultyID,
-  generateStudentID,
-} from './app/module/user/user.utils'
+import {} from './app/module/user/user.utils'
 
 app.use(cors())
 app.use(express.json())
@@ -50,10 +48,9 @@ app.use(globalErrorHandler) // global error handler
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(404).json({
     success: false,
-    message: 'path not found',
+    message: 'Path not found',
   })
-
-  next()
+  next
 })
 
 app.use(globalErrorHandler) // global error handler))

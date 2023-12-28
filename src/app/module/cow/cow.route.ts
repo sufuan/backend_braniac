@@ -1,11 +1,13 @@
 import express from 'express'
-import createCow, { cowController } from './cowcontroller'
+import { cowController } from './cowcontroller'
+import { cowValidation } from './cowvalidation'
+import validateRequest from '../../../middleware/validateRequest'
 
 const router = express.Router()
 
 router.post(
-  '/cow',
-  //   validateRequest(UserValidation.userZodSchema),
+  '/cows',
+  validateRequest(cowValidation.cowZodSchema),
   cowController.createCow,
 )
 
