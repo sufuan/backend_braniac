@@ -1,5 +1,12 @@
 export type IUser = {
-  id: string
-  role: string
   password: string
+  role: string
+  name: {
+    firstName: string
+    lastName: string
+  }
+  phoneNumber: string
+  address: string
+  budget: number
+  income: number
 }

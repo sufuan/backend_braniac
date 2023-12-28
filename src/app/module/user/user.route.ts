@@ -1,8 +1,24 @@
 import express from 'express'
+import { userController } from './user.controller'
+import validateRequest from '../../../middleware/validateRequest'
+import { UserValidation } from './userValidation'
+import { UpdateUserValidation } from './updateUserValidation'
 
-import { createUser } from './user.controller'
 const router = express.Router()
 
-router.post('/create-user', createUser)
+router.post(
+  '/auth',
+  validateRequest(UserValidation.userZodSchema),
+  userController.createUser,
+)
+router.get('/users', userController.getAllUsers)
+router.get('/users/:id', userController.getSingleUser)
+router.delete('/users/:id', userController.deleteSingleUser)
+
+router.patch(
+  '/users/:id',
+  validateRequest(UpdateUserValidation.UpdateuserZodSchema),
+  userController.updateSingleUser,
+)
 
 export default router
