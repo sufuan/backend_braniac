@@ -32,17 +32,66 @@ async function createCow(req: Request, res: Response) {
 
 const getAllCows = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // Fetch all cows from the database
-    const cows = await Cow.find()
+    // Extract query parameters
+    const {
+      page = 1,
+      limit = 10,
+      sortBy,
+      sortOrder = 'asc',
+      minPrice,
+      maxPrice,
+      location,
+      searchTerm,
+    } = req.query
+
+    // Build filter object based on query parameters
+    const filters: any = {}
+
+    if (minPrice) filters.price = { $gte: parseInt(minPrice as string, 10) }
+    if (maxPrice)
+      filters.price = {
+        ...filters.price,
+        $lte: parseInt(maxPrice as string, 10),
+      }
+    if (location) filters.location = location
+    if (searchTerm) {
+      filters.$or = [
+        { location: new RegExp(searchTerm, 'i') },
+        { breed: new RegExp(searchTerm, 'i') },
+        { category: new RegExp(searchTerm, 'i') },
+      ]
+    }
+
+    // Create the sort object based on provided sortBy and sortOrder
+    const sort: any = {}
+    if (sortBy && sortOrder) {
+      sort[sortBy as string] = sortOrder === 'asc' ? 1 : -1
+    }
+
+    // Fetch cows from the database with pagination and sorting
+    const result = await Cow.find(filters)
+      .sort(sort)
+      .skip((parseInt(page as string, 10) - 1) * parseInt(limit as string, 10))
+      .limit(parseInt(limit as string, 10))
 
     res.status(200).json({
       success: true,
+      statusCode: 200,
       message: 'Cows retrieved successfully',
-      data: cows,
+      meta: {
+        page: parseInt(page as string, 10),
+        limit: parseInt(limit as string, 10),
+      },
+      data: result,
     })
   } catch (error) {
     console.error('Error retrieving cows:', error)
-    next(error)
+    res.status(500).json({
+      success: false,
+      statusCode: 500,
+      message: 'Internal server error',
+      data: null,
+    })
   }
 }
 
